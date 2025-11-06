@@ -13,6 +13,8 @@ $usuario_nome = $_SESSION['usuario_nome'];
 <html lang="pt-BR">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
@@ -36,7 +38,7 @@ $usuario_nome = $_SESSION['usuario_nome'];
             <div class="card-body">
                 <form id="formPaciente">
                     <div class="row">
-                        
+                        <!-- Dados Pessoais -->
                         <div class="col-md-12">
                             <h5 class="text-primary"><i class="fas fa-user"></i> Dados Pessoais</h5>
                             <hr>
@@ -97,7 +99,7 @@ $usuario_nome = $_SESSION['usuario_nome'];
                             </div>
                         </div>
                         
-                        
+                        <!-- Endereço -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-map-marker-alt"></i> Endereço</h5>
                             <hr>
@@ -124,7 +126,7 @@ $usuario_nome = $_SESSION['usuario_nome'];
                             </div>
                         </div>
                         
-                        
+                        <!-- Contato -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-phone"></i> Contato</h5>
                             <hr>
@@ -144,6 +146,7 @@ $usuario_nome = $_SESSION['usuario_nome'];
                             </div>
                         </div>
                         
+                        <!-- Informações Profissionais -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-briefcase"></i> Informações Profissionais e Acadêmicas</h5>
                             <hr>
@@ -184,6 +187,7 @@ $usuario_nome = $_SESSION['usuario_nome'];
                             </div>
                         </div>
                         
+                        <!-- Observações -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-sticky-note"></i> Observações</h5>
                             <hr>
@@ -210,7 +214,20 @@ $usuario_nome = $_SESSION['usuario_nome'];
         </div>
     </div>
     
+    <!-- Verificar se o JavaScript está carregando -->
+    <script>
+        console.log('=== INÍCIO DO CARREGAMENTO ===');
+        console.log('Página: cadastrar_paciente.php');
+        console.log('Formulário existe?', document.getElementById('formPaciente') ? 'SIM' : 'NÃO');
+        console.log('Botão existe?', document.getElementById('btnCadastrar') ? 'SIM' : 'NÃO');
+    </script>
+    
     <script src="cadastrar_paciente.js"></script>
+    
+    <script>
+        console.log('=== APÓS CARREGAR JS EXTERNO ===');
+        console.log('Tudo carregado!');
+    </script>
 </body>
 
 </html>
