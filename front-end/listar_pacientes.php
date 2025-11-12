@@ -33,7 +33,9 @@ try {
 </head>
 
 <body>
-    <div class="container mt-4">
+    <?php include 'dashboard.php'; ?>
+    
+    <div class="container mt-4" style="padding-left: 80px;">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3><i class="fas fa-users"></i> Meus Pacientes</h3>
@@ -41,12 +43,6 @@ try {
                     <button class="btn btn-success" onclick="window.location.href='cadastrar_paciente.php'">
                         <i class="fas fa-user-plus"></i> Novo Paciente
                     </button>
-                    <button class="btn btn-secondary" onclick="window.location.href='visao_geral.php'">
-                        <i class="fas fa-arrow-left"></i> Voltar
-                    </button>
-                    <a href="logout.php" class="btn btn-danger">
-                        <i class="fas fa-sign-out-alt"></i> Sair
-                    </a>
                 </div>
             </div>
             <div class="card-body">
@@ -117,10 +113,29 @@ try {
             window.location.href = 'editar_paciente.php?id=' + id;
         }
         
-        function excluir(id, nome) {
-            if (confirm('Tem certeza que deseja excluir o paciente ' + nome + '?')) {
-                // Implementar exclusão
-                alert('Função de exclusão será implementada');
+        async function excluir(id, nome) {
+            if (confirm('Tem certeza que deseja excluir o paciente ' + nome + '?\n\nEsta ação não pode ser desfeita!')) {
+                try {
+                    const response = await fetch('../back-end/excluir_paciente.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id: id })
+                    });
+                    
+                    const resultado = await response.json();
+                    
+                    if (resultado.sucesso) {
+                        alert(resultado.mensagem);
+                        location.reload();
+                    } else {
+                        alert('Erro: ' + resultado.mensagem);
+                    }
+                    
+                } catch (error) {
+                    alert('Erro ao excluir paciente: ' + error.message);
+                }
             }
         }
     </script>
