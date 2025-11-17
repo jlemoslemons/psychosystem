@@ -16,7 +16,7 @@ try {
     $stmt = $pdo->prepare("SELECT * FROM pacientes WHERE id = ? AND usuario_id = ?");
     $stmt->execute([$paciente_id, $usuario_id]);
     $paciente = $stmt->fetch();
-    
+
     if (!$paciente) {
         header('Location: listar_pacientes.php');
         exit;
@@ -39,7 +39,7 @@ try {
 
 <body>
     <?php include 'dashboard.php'; ?>
-    
+
     <div class="container mt-4" style="padding-left: 80px;">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -48,56 +48,56 @@ try {
             <div class="card-body">
                 <form id="formEditarPaciente">
                     <input type="hidden" id="paciente_id" value="<?php echo $paciente['id']; ?>">
-                    
+
                     <div class="row">
                         <!-- Dados Pessoais -->
                         <div class="col-md-12">
                             <h5 class="text-primary"><i class="fas fa-user"></i> Dados Pessoais</h5>
                             <hr>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nome">Nome Completo *</label>
                                 <input type="text" class="form-control" id="nome" value="<?php echo htmlspecialchars($paciente['nome']); ?>" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="data_nascimento">Data de Nascimento *</label>
                                 <input type="date" class="form-control" id="data_nascimento" value="<?php echo $paciente['data_nascimento']; ?>" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="idade">Idade *</label>
                                 <input type="number" class="form-control" id="idade" value="<?php echo $paciente['idade']; ?>" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="cpf">CPF *</label>
                                 <input type="text" class="form-control" id="cpf" value="<?php echo htmlspecialchars($paciente['cpf']); ?>" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="rg">RG</label>
                                 <input type="text" class="form-control" id="rg" value="<?php echo htmlspecialchars($paciente['rg']); ?>">
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="naturalidade">Naturalidade</label>
                                 <input type="text" class="form-control" id="naturalidade" value="<?php echo htmlspecialchars($paciente['naturalidade']); ?>">
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="sexo">Sexo *</label>
@@ -110,60 +110,60 @@ try {
                                 </select>
                             </div>
                         </div>
-                        
+
                         <!-- Endereço -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-map-marker-alt"></i> Endereço</h5>
                             <hr>
                         </div>
-                        
+
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="cep">CEP</label>
                                 <input type="text" class="form-control" id="cep" value="<?php echo htmlspecialchars($paciente['cep']); ?>">
                             </div>
                         </div>
-                        
+
                         <div class="col-md-7">
                             <div class="form-group">
                                 <label for="endereco">Endereço</label>
                                 <input type="text" class="form-control" id="endereco" value="<?php echo htmlspecialchars($paciente['endereco']); ?>">
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="cidade">Cidade</label>
                                 <input type="text" class="form-control" id="cidade" value="<?php echo htmlspecialchars($paciente['cidade']); ?>">
                             </div>
                         </div>
-                        
+
                         <!-- Contato -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-phone"></i> Contato</h5>
                             <hr>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="contato">Contato *</label>
                                 <input type="text" class="form-control" id="contato" value="<?php echo htmlspecialchars($paciente['contato']); ?>" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="contato_emergencia">Contato de Emergência</label>
                                 <input type="text" class="form-control" id="contato_emergencia" value="<?php echo htmlspecialchars($paciente['contato_emergencia']); ?>">
                             </div>
                         </div>
-                        
+
                         <!-- Informações Profissionais -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-briefcase"></i> Informações Profissionais</h5>
                             <hr>
                         </div>
-                        
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="escolaridade">Escolaridade</label>
@@ -181,7 +181,7 @@ try {
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="trabalha">Trabalha?</label>
@@ -191,20 +191,20 @@ try {
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="onde_trabalha">Onde Trabalha</label>
                                 <input type="text" class="form-control" id="onde_trabalha" value="<?php echo htmlspecialchars($paciente['onde_trabalha']); ?>">
                             </div>
                         </div>
-                        
+
                         <!-- Observações -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-sticky-note"></i> Observações</h5>
                             <hr>
                         </div>
-                        
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="obs">Observações</label>
@@ -212,7 +212,7 @@ try {
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="text-right mt-4">
                         <button type="button" class="btn btn-secondary" onclick="window.location.href='ver_paciente.php?id=<?php echo $paciente['id']; ?>'">
                             <i class="fas fa-times"></i> Cancelar
@@ -225,7 +225,7 @@ try {
             </div>
         </div>
     </div>
-    
+
     <script src="editar_paciente.js"></script>
 </body>
 

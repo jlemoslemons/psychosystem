@@ -25,7 +25,7 @@ $usuario_usuario = $_SESSION['usuario_usuario'];
 
 <body>
     <?php include 'dashboard.php'; ?>
-    
+
     <div class="container mt-5" style="padding-left: 80px;">
         <div class="row">
             <div class="col-md-12">
@@ -36,9 +36,9 @@ $usuario_usuario = $_SESSION['usuario_usuario'];
                     <div class="card-body">
                         <h4>Olá, <?php echo htmlspecialchars($usuario_nome); ?>!</h4>
                         <p class="text-muted">Usuário: <?php echo htmlspecialchars($usuario_usuario); ?></p>
-                        
+
                         <hr>
-                        
+
                         <div class="row mt-4">
                             <div class="col-md-4">
                                 <div class="card text-center" style="cursor: pointer;" onclick="window.location.href='cadastrar_paciente.php'">

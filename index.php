@@ -13,10 +13,10 @@
         <h1>PsicoSystem</h1>
         <label for="usuario">Usuário</label>
         <input id="usuario" type="text" placeholder="Digite seu usuário" class="form-control"><br>
-        
+
         <label for="senha">Senha</label>
         <input id="senha" type="password" placeholder="Digite sua senha" class="form-control"><br>
-        
+
         <button id="login" type="submit" class="btn btn-primary">Login</button>
         <button id="cadastrar" type="button" class="btn btn-secondary" onclick="window.location.href='front-end/cadastrar.php'">Cadastrar</button>
     </div>

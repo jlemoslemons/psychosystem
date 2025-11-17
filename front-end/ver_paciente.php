@@ -16,7 +16,7 @@ try {
     $stmt = $pdo->prepare("SELECT * FROM pacientes WHERE id = ? AND usuario_id = ?");
     $stmt->execute([$paciente_id, $usuario_id]);
     $paciente = $stmt->fetch();
-    
+
     if (!$paciente) {
         header('Location: listar_pacientes.php');
         exit;
@@ -26,7 +26,8 @@ try {
 }
 
 // Função para exibir valor ou "Não informado"
-function exibir($valor) {
+function exibir($valor)
+{
     return !empty($valor) ? htmlspecialchars($valor) : '<span class="text-muted">Não informado</span>';
 }
 ?>
@@ -44,17 +45,20 @@ function exibir($valor) {
         .info-group {
             margin-bottom: 20px;
         }
+
         .info-label {
             font-weight: bold;
             color: #495057;
             margin-bottom: 5px;
         }
+
         .info-value {
             padding: 10px;
             background-color: #f8f9fa;
             border-radius: 4px;
             border-left: 3px solid #007bff;
         }
+
         .section-title {
             margin-top: 30px;
             margin-bottom: 20px;
@@ -67,7 +71,7 @@ function exibir($valor) {
 
 <body>
     <?php include 'dashboard.php'; ?>
-    
+
     <div class="container mt-4" style="padding-left: 80px;">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -85,155 +89,155 @@ function exibir($valor) {
                 <?php if (isset($erro)): ?>
                     <div class="alert alert-danger"><?php echo $erro; ?></div>
                 <?php else: ?>
-                
-                <!-- Dados Pessoais -->
-                <h4 class="section-title"><i class="fas fa-user"></i> Dados Pessoais</h4>
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="info-group">
-                            <div class="info-label">Nome Completo</div>
-                            <div class="info-value"><?php echo exibir($paciente['nome']); ?></div>
+
+                    <!-- Dados Pessoais -->
+                    <h4 class="section-title"><i class="fas fa-user"></i> Dados Pessoais</h4>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="info-group">
+                                <div class="info-label">Nome Completo</div>
+                                <div class="info-value"><?php echo exibir($paciente['nome']); ?></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="info-group">
-                            <div class="info-label">Data de Nascimento</div>
-                            <div class="info-value">
-                                <?php 
-                                if (!empty($paciente['data_nascimento'])) {
-                                    echo date('d/m/Y', strtotime($paciente['data_nascimento']));
-                                } else {
-                                    echo '<span class="text-muted">Não informado</span>';
-                                }
-                                ?>
+                        <div class="col-md-4">
+                            <div class="info-group">
+                                <div class="info-label">Data de Nascimento</div>
+                                <div class="info-value">
+                                    <?php
+                                    if (!empty($paciente['data_nascimento'])) {
+                                        echo date('d/m/Y', strtotime($paciente['data_nascimento']));
+                                    } else {
+                                        echo '<span class="text-muted">Não informado</span>';
+                                    }
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="info-group">
-                            <div class="info-label">Idade</div>
-                            <div class="info-value"><?php echo exibir($paciente['idade'] . ' anos'); ?></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="info-group">
+                                <div class="info-label">Idade</div>
+                                <div class="info-value"><?php echo exibir($paciente['idade'] . ' anos'); ?></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="info-group">
-                            <div class="info-label">CPF</div>
-                            <div class="info-value"><?php echo exibir($paciente['cpf']); ?></div>
+                        <div class="col-md-3">
+                            <div class="info-group">
+                                <div class="info-label">CPF</div>
+                                <div class="info-value"><?php echo exibir($paciente['cpf']); ?></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="info-group">
-                            <div class="info-label">RG</div>
-                            <div class="info-value"><?php echo exibir($paciente['rg']); ?></div>
+                        <div class="col-md-3">
+                            <div class="info-group">
+                                <div class="info-label">RG</div>
+                                <div class="info-value"><?php echo exibir($paciente['rg']); ?></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="info-group">
-                            <div class="info-label">Sexo</div>
-                            <div class="info-value"><?php echo exibir($paciente['sexo']); ?></div>
+                        <div class="col-md-2">
+                            <div class="info-group">
+                                <div class="info-label">Sexo</div>
+                                <div class="info-value"><?php echo exibir($paciente['sexo']); ?></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="info-group">
-                            <div class="info-label">Naturalidade</div>
-                            <div class="info-value"><?php echo exibir($paciente['naturalidade']); ?></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Endereço -->
-                <h4 class="section-title"><i class="fas fa-map-marker-alt"></i> Endereço</h4>
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="info-group">
-                            <div class="info-label">CEP</div>
-                            <div class="info-value"><?php echo exibir($paciente['cep']); ?></div>
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="info-group">
-                            <div class="info-label">Endereço</div>
-                            <div class="info-value"><?php echo exibir($paciente['endereco']); ?></div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="info-group">
-                            <div class="info-label">Cidade</div>
-                            <div class="info-value"><?php echo exibir($paciente['cidade']); ?></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Contato -->
-                <h4 class="section-title"><i class="fas fa-phone"></i> Contato</h4>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="info-group">
-                            <div class="info-label">Contato</div>
-                            <div class="info-value"><?php echo exibir($paciente['contato']); ?></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="info-group">
-                            <div class="info-label">Contato de Emergência</div>
-                            <div class="info-value"><?php echo exibir($paciente['contato_emergencia']); ?></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Informações Profissionais -->
-                <h4 class="section-title"><i class="fas fa-briefcase"></i> Informações Profissionais e Acadêmicas</h4>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="info-group">
-                            <div class="info-label">Escolaridade</div>
-                            <div class="info-value"><?php echo exibir($paciente['escolaridade']); ?></div>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="info-group">
-                            <div class="info-label">Trabalha?</div>
-                            <div class="info-value"><?php echo exibir($paciente['trabalha']); ?></div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="info-group">
-                            <div class="info-label">Onde Trabalha</div>
-                            <div class="info-value"><?php echo exibir($paciente['onde_trabalha']); ?></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Observações -->
-                <h4 class="section-title"><i class="fas fa-sticky-note"></i> Observações</h4>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="info-group">
-                            <div class="info-value" style="min-height: 100px; white-space: pre-wrap;">
-                                <?php echo exibir($paciente['obs']); ?>
+                        <div class="col-md-2">
+                            <div class="info-group">
+                                <div class="info-label">Naturalidade</div>
+                                <div class="info-value"><?php echo exibir($paciente['naturalidade']); ?></div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Data de Cadastro -->
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <p class="text-muted">
-                            <small>
-                                <i class="fas fa-clock"></i> 
-                                Cadastrado em: <?php echo date('d/m/Y H:i', strtotime($paciente['data_cadastro'])); ?>
-                                <?php if ($paciente['data_atualizacao'] != $paciente['data_cadastro']): ?>
-                                    | Última atualização: <?php echo date('d/m/Y H:i', strtotime($paciente['data_atualizacao'])); ?>
-                                <?php endif; ?>
-                            </small>
-                        </p>
+
+                    <!-- Endereço -->
+                    <h4 class="section-title"><i class="fas fa-map-marker-alt"></i> Endereço</h4>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="info-group">
+                                <div class="info-label">CEP</div>
+                                <div class="info-value"><?php echo exibir($paciente['cep']); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="info-group">
+                                <div class="info-label">Endereço</div>
+                                <div class="info-value"><?php echo exibir($paciente['endereco']); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="info-group">
+                                <div class="info-label">Cidade</div>
+                                <div class="info-value"><?php echo exibir($paciente['cidade']); ?></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
+
+                    <!-- Contato -->
+                    <h4 class="section-title"><i class="fas fa-phone"></i> Contato</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="info-group">
+                                <div class="info-label">Contato</div>
+                                <div class="info-value"><?php echo exibir($paciente['contato']); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-group">
+                                <div class="info-label">Contato de Emergência</div>
+                                <div class="info-value"><?php echo exibir($paciente['contato_emergencia']); ?></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Informações Profissionais -->
+                    <h4 class="section-title"><i class="fas fa-briefcase"></i> Informações Profissionais e Acadêmicas</h4>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="info-group">
+                                <div class="info-label">Escolaridade</div>
+                                <div class="info-value"><?php echo exibir($paciente['escolaridade']); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="info-group">
+                                <div class="info-label">Trabalha?</div>
+                                <div class="info-value"><?php echo exibir($paciente['trabalha']); ?></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-group">
+                                <div class="info-label">Onde Trabalha</div>
+                                <div class="info-value"><?php echo exibir($paciente['onde_trabalha']); ?></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Observações -->
+                    <h4 class="section-title"><i class="fas fa-sticky-note"></i> Observações</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="info-group">
+                                <div class="info-value" style="min-height: 100px; white-space: pre-wrap;">
+                                    <?php echo exibir($paciente['obs']); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data de Cadastro -->
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <p class="text-muted">
+                                <small>
+                                    <i class="fas fa-clock"></i>
+                                    Cadastrado em: <?php echo date('d/m/Y H:i', strtotime($paciente['data_cadastro'])); ?>
+                                    <?php if ($paciente['data_atualizacao'] != $paciente['data_cadastro']): ?>
+                                        | Última atualização: <?php echo date('d/m/Y H:i', strtotime($paciente['data_atualizacao'])); ?>
+                                    <?php endif; ?>
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+
                 <?php endif; ?>
             </div>
         </div>

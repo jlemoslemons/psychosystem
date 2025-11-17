@@ -8,10 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Receber dados JSON
     $json = file_get_contents('php://input');
     $dados = json_decode($json, true);
-    
+
     $usuario = trim($dados['usuario'] ?? '');
     $senha = $dados['senha'] ?? '';
-    
+
     // Validações
     if (empty($usuario) || empty($senha)) {
         echo json_encode([
@@ -20,20 +20,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         exit;
     }
-    
+
     try {
         // Buscar usuário
         $stmt = $pdo->prepare("SELECT id, nome, usuario, senha FROM usuarios WHERE usuario = ?");
         $stmt->execute([$usuario]);
         $usuarioDB = $stmt->fetch();
-        
+
         // Verificar se usuário existe e senha está correta
         if ($usuarioDB && password_verify($senha, $usuarioDB['senha'])) {
             // Login bem-sucedido
             $_SESSION['usuario_id'] = $usuarioDB['id'];
             $_SESSION['usuario_nome'] = $usuarioDB['nome'];
             $_SESSION['usuario_usuario'] = $usuarioDB['usuario'];
-            
+
             echo json_encode([
                 'sucesso' => true,
                 'mensagem' => 'Login realizado com sucesso!',
@@ -50,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'mensagem' => 'Usuário ou senha inválidos!'
             ]);
         }
-        
     } catch (PDOException $e) {
         echo json_encode([
             'sucesso' => false,
@@ -63,4 +62,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'mensagem' => 'Método não permitido!'
     ]);
 }
-?>

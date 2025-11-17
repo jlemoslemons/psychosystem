@@ -16,7 +16,7 @@ if (!isset($_SESSION['usuario_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $json = file_get_contents('php://input');
     $dados = json_decode($json, true);
-    
+
     $usuario_id = $_SESSION['usuario_id'];
     $paciente_id = intval($dados['id'] ?? 0);
     $nome = trim($dados['nome'] ?? '');
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $trabalha = $dados['trabalha'] ?? 'Não';
     $onde_trabalha = trim($dados['onde_trabalha'] ?? '');
     $obs = trim($dados['obs'] ?? '');
-    
+
     // Validações
     if (empty($nome) || empty($data_nascimento) || empty($cpf) || empty($sexo) || empty($contato)) {
         echo json_encode([
@@ -44,12 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         exit;
     }
-    
+
     try {
         // Verificar se o paciente pertence ao usuário logado
         $stmt = $pdo->prepare("SELECT id FROM pacientes WHERE id = ? AND usuario_id = ?");
         $stmt->execute([$paciente_id, $usuario_id]);
-        
+
         if (!$stmt->fetch()) {
             echo json_encode([
                 'sucesso' => false,
@@ -57,11 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             exit;
         }
-        
+
         // Verificar se o CPF já existe em outro paciente
         $stmt = $pdo->prepare("SELECT id FROM pacientes WHERE cpf = ? AND usuario_id = ? AND id != ?");
         $stmt->execute([$cpf, $usuario_id, $paciente_id]);
-        
+
         if ($stmt->fetch()) {
             echo json_encode([
                 'sucesso' => false,
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             exit;
         }
-        
+
         // Atualizar paciente
         $sql = "UPDATE pacientes SET 
             nome = ?, data_nascimento = ?, idade = ?, cpf = ?, rg = ?, 
@@ -77,20 +77,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             contato = ?, contato_emergencia = ?, escolaridade = ?, 
             trabalha = ?, onde_trabalha = ?, obs = ?
             WHERE id = ? AND usuario_id = ?";
-        
+
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
-            $nome, $data_nascimento, $idade, $cpf, $rg, $naturalidade,
-            $sexo, $endereco, $cep, $cidade, $contato, $contato_emergencia,
-            $escolaridade, $trabalha, $onde_trabalha, $obs,
-            $paciente_id, $usuario_id
+            $nome,
+            $data_nascimento,
+            $idade,
+            $cpf,
+            $rg,
+            $naturalidade,
+            $sexo,
+            $endereco,
+            $cep,
+            $cidade,
+            $contato,
+            $contato_emergencia,
+            $escolaridade,
+            $trabalha,
+            $onde_trabalha,
+            $obs,
+            $paciente_id,
+            $usuario_id
         ]);
-        
+
         echo json_encode([
             'sucesso' => true,
             'mensagem' => 'Paciente atualizado com sucesso!'
         ]);
-        
     } catch (PDOException $e) {
         echo json_encode([
             'sucesso' => false,
@@ -103,4 +116,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'mensagem' => 'Método não permitido!'
     ]);
 }
-?>

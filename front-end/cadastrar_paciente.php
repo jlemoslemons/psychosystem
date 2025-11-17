@@ -23,7 +23,7 @@ $usuario_nome = $_SESSION['usuario_nome'];
 
 <body>
     <?php include 'dashboard.php'; ?>
-    
+
     <div class="container mt-4" style="padding-left: 80px;">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -37,49 +37,49 @@ $usuario_nome = $_SESSION['usuario_nome'];
                             <h5 class="text-primary"><i class="fas fa-user"></i> Dados Pessoais</h5>
                             <hr>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nome">Nome Completo *</label>
                                 <input type="text" class="form-control" id="nome" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="data_nascimento">Data de Nascimento *</label>
                                 <input type="date" class="form-control" id="data_nascimento" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="idade">Idade *</label>
                                 <input type="number" class="form-control" id="idade" min="0" max="150" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="cpf">CPF *</label>
                                 <input type="text" class="form-control" id="cpf" placeholder="000.000.000-00" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="rg">RG</label>
                                 <input type="text" class="form-control" id="rg">
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="naturalidade">Naturalidade</label>
                                 <input type="text" class="form-control" id="naturalidade">
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="sexo">Sexo *</label>
@@ -92,60 +92,60 @@ $usuario_nome = $_SESSION['usuario_nome'];
                                 </select>
                             </div>
                         </div>
-                        
+
                         <!-- Endereço -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-map-marker-alt"></i> Endereço</h5>
                             <hr>
                         </div>
-                        
+
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="cep">CEP</label>
                                 <input type="text" class="form-control" id="cep" placeholder="00000-000">
                             </div>
                         </div>
-                        
+
                         <div class="col-md-7">
                             <div class="form-group">
                                 <label for="endereco">Endereço</label>
                                 <input type="text" class="form-control" id="endereco" placeholder="Rua, número, bairro">
                             </div>
                         </div>
-                        
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="cidade">Cidade</label>
                                 <input type="text" class="form-control" id="cidade">
                             </div>
                         </div>
-                        
+
                         <!-- Contato -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-phone"></i> Contato</h5>
                             <hr>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="contato">Contato *</label>
                                 <input type="text" class="form-control" id="contato" placeholder="(00) 00000-0000" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="contato_emergencia">Contato de Emergência</label>
                                 <input type="text" class="form-control" id="contato_emergencia" placeholder="(00) 00000-0000">
                             </div>
                         </div>
-                        
+
                         <!-- Informações Profissionais -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-briefcase"></i> Informações Profissionais e Acadêmicas</h5>
                             <hr>
                         </div>
-                        
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="escolaridade">Escolaridade</label>
@@ -163,7 +163,7 @@ $usuario_nome = $_SESSION['usuario_nome'];
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="trabalha">Trabalha?</label>
@@ -173,20 +173,20 @@ $usuario_nome = $_SESSION['usuario_nome'];
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="onde_trabalha">Onde Trabalha</label>
                                 <input type="text" class="form-control" id="onde_trabalha">
                             </div>
                         </div>
-                        
+
                         <!-- Observações -->
                         <div class="col-md-12 mt-3">
                             <h5 class="text-primary"><i class="fas fa-sticky-note"></i> Observações</h5>
                             <hr>
                         </div>
-                        
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="obs">Observações</label>
@@ -194,7 +194,7 @@ $usuario_nome = $_SESSION['usuario_nome'];
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="text-right mt-4">
                         <button type="button" class="btn btn-secondary" onclick="window.location.href='visao_geral.php'">
                             <i class="fas fa-times"></i> Cancelar
@@ -207,7 +207,7 @@ $usuario_nome = $_SESSION['usuario_nome'];
             </div>
         </div>
     </div>
-    
+
     <!-- Verificar se o JavaScript está carregando -->
     <script>
         console.log('=== INÍCIO DO CARREGAMENTO ===');
@@ -215,9 +215,9 @@ $usuario_nome = $_SESSION['usuario_nome'];
         console.log('Formulário existe?', document.getElementById('formPaciente') ? 'SIM' : 'NÃO');
         console.log('Botão existe?', document.getElementById('btnCadastrar') ? 'SIM' : 'NÃO');
     </script>
-    
+
     <script src="cadastrar_paciente.js"></script>
-    
+
     <script>
         console.log('=== APÓS CARREGAR JS EXTERNO ===');
         console.log('Tudo carregado!');

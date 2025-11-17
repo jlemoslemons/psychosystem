@@ -8,12 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Receber dados JSON
     $json = file_get_contents('php://input');
     $dados = json_decode($json, true);
-    
+
     $nome = trim($dados['nome'] ?? '');
     $usuario = trim($dados['usuario'] ?? '');
     $senha = $dados['senha'] ?? '';
     $confirmarSenha = $dados['confirmarSenha'] ?? '';
-    
+
     // Validações
     if (empty($nome) || empty($usuario) || empty($senha)) {
         echo json_encode([
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         exit;
     }
-    
+
     if (strlen($senha) < 6) {
         echo json_encode([
             'sucesso' => false,
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         exit;
     }
-    
+
     if ($senha !== $confirmarSenha) {
         echo json_encode([
             'sucesso' => false,
@@ -38,12 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         exit;
     }
-    
+
     try {
         // Verificar se o usuário já existe
         $stmt = $pdo->prepare("SELECT id FROM usuarios WHERE usuario = ?");
         $stmt->execute([$usuario]);
-        
+
         if ($stmt->fetch()) {
             echo json_encode([
                 'sucesso' => false,
@@ -51,19 +51,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             exit;
         }
-        
+
         // Hash da senha com bcrypt
         $senhaHash = password_hash($senha, PASSWORD_BCRYPT);
-        
+
         // Inserir novo usuário
         $stmt = $pdo->prepare("INSERT INTO usuarios (nome, usuario, senha) VALUES (?, ?, ?)");
         $stmt->execute([$nome, $usuario, $senhaHash]);
-        
+
         echo json_encode([
             'sucesso' => true,
             'mensagem' => 'Cadastro realizado com sucesso!'
         ]);
-        
     } catch (PDOException $e) {
         echo json_encode([
             'sucesso' => false,
@@ -76,4 +75,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'mensagem' => 'Método não permitido!'
     ]);
 }
-?>

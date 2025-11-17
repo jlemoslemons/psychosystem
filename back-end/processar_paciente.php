@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Receber dados JSON
     $json = file_get_contents('php://input');
     $dados = json_decode($json, true);
-    
+
     $usuario_id = $_SESSION['usuario_id'];
     $nome = trim($dados['nome'] ?? '');
     $data_nascimento = $dados['data_nascimento'] ?? '';
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $trabalha = $dados['trabalha'] ?? 'Não';
     $onde_trabalha = trim($dados['onde_trabalha'] ?? '');
     $obs = trim($dados['obs'] ?? '');
-    
+
     // Validações
     if (empty($nome) || empty($data_nascimento) || empty($cpf) || empty($sexo) || empty($contato)) {
         echo json_encode([
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         exit;
     }
-    
+
     // Validar CPF (formato básico)
     $cpf_limpo = preg_replace('/[^0-9]/', '', $cpf);
     if (strlen($cpf_limpo) != 11) {
@@ -54,12 +54,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
         exit;
     }
-    
+
     try {
         // Verificar se CPF já existe para este usuário
         $stmt = $pdo->prepare("SELECT id FROM pacientes WHERE cpf = ? AND usuario_id = ?");
         $stmt->execute([$cpf, $usuario_id]);
-        
+
         if ($stmt->fetch()) {
             echo json_encode([
                 'sucesso' => false,
@@ -67,27 +67,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
             exit;
         }
-        
+
         // Inserir paciente
         $sql = "INSERT INTO pacientes (
             usuario_id, nome, data_nascimento, idade, cpf, rg, naturalidade, 
             sexo, endereco, cep, cidade, contato, contato_emergencia, 
             escolaridade, trabalha, onde_trabalha, obs
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
+
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
-            $usuario_id, $nome, $data_nascimento, $idade, $cpf, $rg, $naturalidade,
-            $sexo, $endereco, $cep, $cidade, $contato, $contato_emergencia,
-            $escolaridade, $trabalha, $onde_trabalha, $obs
+            $usuario_id,
+            $nome,
+            $data_nascimento,
+            $idade,
+            $cpf,
+            $rg,
+            $naturalidade,
+            $sexo,
+            $endereco,
+            $cep,
+            $cidade,
+            $contato,
+            $contato_emergencia,
+            $escolaridade,
+            $trabalha,
+            $onde_trabalha,
+            $obs
         ]);
-        
+
         echo json_encode([
             'sucesso' => true,
             'mensagem' => 'Paciente cadastrado com sucesso!',
             'paciente_id' => $pdo->lastInsertId()
         ]);
-        
     } catch (PDOException $e) {
         echo json_encode([
             'sucesso' => false,
@@ -100,4 +113,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'mensagem' => 'Método não permitido!'
     ]);
 }
-?>

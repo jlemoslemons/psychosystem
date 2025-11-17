@@ -33,4 +33,3 @@ class Config
 // Criar instância global da conexão
 $config = new Config();
 $pdo = $config->conectar();
-?>
