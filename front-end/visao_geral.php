@@ -24,7 +24,7 @@ $usuario_usuario = $_SESSION['usuario_usuario'];
 
 <body>
     <?php include 'dashboard.php'; ?>
-
+    
     <div class="container mt-5" style="padding-left: 80px;">
         <div class="row">
             <div class="col-md-12">
@@ -34,10 +34,10 @@ $usuario_usuario = $_SESSION['usuario_usuario'];
                     </div>
                     <div class="card-body">
                         <h4>Olá, <?php echo htmlspecialchars($usuario_nome); ?>!</h4>
-                        <p class="text-muted">Usuário: <?php echo htmlspecialchars($usuario_usuario); ?></p>
-
+                        <p class="text-muted">Usuário: @<?php echo htmlspecialchars($usuario_usuario); ?></p>
+                        
                         <hr>
-
+                        
                         <div class="row mt-4">
                             <div class="col-md-4">
                                 <div class="card text-center" style="cursor: pointer;" onclick="window.location.href='cadastrar_paciente.php'">
@@ -58,11 +58,11 @@ $usuario_usuario = $_SESSION['usuario_usuario'];
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <div class="card text-center">
+                                <div class="card text-center" style="cursor: pointer;" onclick="window.location.href='todos_prontuarios.php'">
                                     <div class="card-body">
                                         <i class="fas fa-file-medical-alt fa-3x mb-3 text-info"></i>
                                         <h5>Prontuários</h5>
-                                        <p class="text-muted">Em breve</p>
+                                        <p class="text-muted">Gerenciar prontuários</p>
                                     </div>
                                 </div>
                             </div>

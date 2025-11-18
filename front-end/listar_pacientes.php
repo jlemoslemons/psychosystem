@@ -33,7 +33,7 @@ try {
 
 <body>
     <?php include 'dashboard.php'; ?>
-
+    
     <div class="container mt-4" style="padding-left: 80px;">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -70,29 +70,32 @@ try {
                             </thead>
                             <tbody>
                                 <?php foreach ($pacientes as $paciente): ?>
-                                    <tr>
-                                        <td><i class="fas fa-user-circle"></i> <?php echo htmlspecialchars($paciente['nome']); ?></td>
-                                        <td><?php echo $paciente['idade']; ?> anos</td>
-                                        <td><?php echo htmlspecialchars($paciente['cpf']); ?></td>
-                                        <td><?php echo htmlspecialchars($paciente['contato']); ?></td>
-                                        <td><?php echo htmlspecialchars($paciente['cidade']); ?></td>
-                                        <td class="text-center">
-                                            <button class="btn btn-sm btn-info" onclick="verDetalhes(<?php echo $paciente['id']; ?>)">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-warning" onclick="editar(<?php echo $paciente['id']; ?>)">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button class="btn btn-sm btn-danger" onclick="excluir(<?php echo $paciente['id']; ?>, '<?php echo htmlspecialchars($paciente['nome']); ?>')">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td><i class="fas fa-user-circle"></i> <?php echo htmlspecialchars($paciente['nome']); ?></td>
+                                    <td><?php echo $paciente['idade']; ?> anos</td>
+                                    <td><?php echo htmlspecialchars($paciente['cpf']); ?></td>
+                                    <td><?php echo htmlspecialchars($paciente['contato']); ?></td>
+                                    <td><?php echo htmlspecialchars($paciente['cidade']); ?></td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-info" onclick="verDetalhes(<?php echo $paciente['id']; ?>)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-success" onclick="novoProntuario(<?php echo $paciente['id']; ?>)" title="Novo Prontuário">
+                                            <i class="fas fa-file-medical"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-warning" onclick="editar(<?php echo $paciente['id']; ?>)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" onclick="excluir(<?php echo $paciente['id']; ?>, '<?php echo htmlspecialchars($paciente['nome']); ?>')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-
+                    
                     <div class="mt-3">
                         <p class="text-muted">
                             <i class="fas fa-info-circle"></i> Total de pacientes: <strong><?php echo count($pacientes); ?></strong>
@@ -102,16 +105,20 @@ try {
             </div>
         </div>
     </div>
-
+    
     <script>
         function verDetalhes(id) {
             window.location.href = 'ver_paciente.php?id=' + id;
         }
-
+        
+        function novoProntuario(id) {
+            window.location.href = 'prontuarios.php?paciente_id=' + id;
+        }
+        
         function editar(id) {
             window.location.href = 'editar_paciente.php?id=' + id;
         }
-
+        
         async function excluir(id, nome) {
             if (confirm('Tem certeza que deseja excluir o paciente ' + nome + '?\n\nEsta ação não pode ser desfeita!')) {
                 try {
@@ -120,20 +127,18 @@ try {
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({
-                            id: id
-                        })
+                        body: JSON.stringify({ id: id })
                     });
-
+                    
                     const resultado = await response.json();
-
+                    
                     if (resultado.sucesso) {
                         alert(resultado.mensagem);
                         location.reload();
                     } else {
                         alert('Erro: ' + resultado.mensagem);
                     }
-
+                    
                 } catch (error) {
                     alert('Erro ao excluir paciente: ' + error.message);
                 }
